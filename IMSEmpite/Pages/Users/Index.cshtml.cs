@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace IMSEmpite.Pages.Inventories
+namespace IMSEmpite.Pages.Users
 {
-    //[Authorize(Roles= SD.AdminEndUser)]
+    [Authorize(Roles= SD.AdminEndUser)]
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _db;
@@ -22,11 +22,11 @@ namespace IMSEmpite.Pages.Inventories
             _db = db;
         }
 
-        public IList<Inventory> Inventory { get; set; }
-
+        [BindProperty] 
+        public List<ApplicationUser> ApplicationUserList { get; set; }
         public async Task<IActionResult> OnGet()
         {
-            Inventory = await _db.Inventory.ToListAsync();
+            ApplicationUserList = await _db.ApplicationUser.ToListAsync();
             return Page();
         }
     }

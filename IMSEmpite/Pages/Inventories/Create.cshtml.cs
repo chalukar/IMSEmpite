@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using IMSEmpite.Data;
 using IMSEmpite.Models;
+using IMSEmpite.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IMSEmpite.Pages.Inventories
 {
+    //[Authorize(Roles= SD.AdminEndUser)]
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _db;

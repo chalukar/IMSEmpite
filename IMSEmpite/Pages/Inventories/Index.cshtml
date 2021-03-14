@@ -1,5 +1,6 @@
 ﻿@page
 @model IMSEmpite.Pages.Inventories.IndexModel
+@using IMSEmpite.Utility
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Pages/Shared/_Layout.cshtml";
@@ -13,9 +14,20 @@
             <h2 class="text-info"> Inventory List</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-page="Create" class="btn btn-info">
-                <i class="fas fa-plus"></i> &nbsp; Create New
-            </a>
+            @if (User.IsInRole(SD.AdminEndUser))
+            {
+                <a asp-page="Create" class="btn btn-info">
+                    <i class="fas fa-plus"></i> &nbsp; Create New
+                </a>
+            }
+            @if (User.IsInRole(SD.ManagerEndUser))
+            {
+                <a asp-page="Create" class="btn btn-info">
+                    <i class="fas fa-plus"></i> &nbsp; Create New
+                </a>
+            }
+
+
         </div>
     </div>
     <br />
@@ -38,27 +50,51 @@
                 </tr>
                 @foreach (var item in Model.Inventory)
                 {
-            <tr>
-                <td>
-                    @Html.DisplayFor(m => item.ItemName)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => item.Qty)
-                </td>
-                <td style="width:150px">
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-primary text-white" asp-page="Edit" asp-route-Id="@item.Id">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a class="btn btn-success text-white" asp-page="Details" asp-route-Id="@item.Id">
-                            <i class="fas fa-list-alt"></i>
-                        </a>
-                        <a class="btn btn-danger text-white" asp-page="Delete" asp-route-Id="@item.Id">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
-                </td>
-            </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.ItemName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Qty)
+                        </td>
+                        <td style="width:150px">
+                            <div class="btn-group" role="group">
+                                @if (User.IsInRole(SD.AdminEndUser))
+                                {
+                                    <a class="btn btn-primary text-white" asp-page="Edit" asp-route-Id="@item.Id">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-success text-white" asp-page="Details" asp-route-Id="@item.Id">
+                                        <i class="fas fa-list-alt"></i>
+                                    </a>
+                                    <a class="btn btn-danger text-white" asp-page="Delete" asp-route-Id="@item.Id">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                }
+                                @if (User.IsInRole(SD.ManagerEndUser))
+                                {
+                                    <a class="btn btn-primary text-white" asp-page="Edit" asp-route-Id="@item.Id">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-success text-white" asp-page="Details" asp-route-Id="@item.Id">
+                                        <i class="fas fa-list-alt"></i>
+                                    </a>
+                                    <a class="btn btn-danger text-white" asp-page="Delete" asp-route-Id="@item.Id">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                }
+                                @if (User.IsInRole(SD.ViewerEndUser))
+                                {
+                            
+                                    <a class="btn btn-success text-white" asp-page="Details" asp-route-Id="@item.Id">
+                                        <i class="fas fa-list-alt"></i>
+                                    </a>
+                                   
+                                }
+
+                            </div>
+                        </td>
+                    </tr>
                 }
             </table>
         }

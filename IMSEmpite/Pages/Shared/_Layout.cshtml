@@ -1,4 +1,5 @@
-﻿ <!DOCTYPE html>
+﻿ @using IMSEmpite.Utility
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -32,9 +33,32 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Inventories/Index">Inventory</a>
-                        </li>
+                        @if (User.IsInRole(SD.AdminEndUser))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Inventories/Index">Inventory</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Users/Index">Users</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.ManagerEndUser))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Inventories/Index">Inventory</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Users/Index">Users</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.ViewerEndUser))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Inventories/Index">Inventory</a>
+                            </li>
+                           
+                        }
+
                     </ul>
                 </div>
             </div>

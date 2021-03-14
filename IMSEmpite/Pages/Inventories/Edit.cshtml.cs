@@ -8,9 +8,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IMSEmpite.Data;
 using IMSEmpite.Models;
+using Microsoft.AspNetCore.Authorization;
+using IMSEmpite.Utility;
 
 namespace IMSEmpite.Pages.Inventories
 {
+    
+
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _db;
