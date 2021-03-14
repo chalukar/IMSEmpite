@@ -81,6 +81,8 @@ namespace IMSEmpite.Areas.Identity.Pages.Account
             public bool IsAdmin { get; set; }
             public bool IsManager { get; set; }
             public bool IsViewer { get; set; }
+
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -100,7 +102,8 @@ namespace IMSEmpite.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     Name = Input.Name,
                     Address = Input.Address,
-                    City = Input.City
+                    City = Input.City,
+                    IsActive = true
 
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
