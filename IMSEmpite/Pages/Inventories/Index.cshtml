@@ -1,0 +1,66 @@
+﻿@page
+@model IMSEmpite.Pages.Inventories.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroundwhite">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info"> Inventory List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-page="Create" class="btn btn-info">
+                <i class="fas fa-plus"></i> &nbsp; Create New
+            </a>
+        </div>
+    </div>
+    <br />
+    <div>
+        @if (Model.Inventory.Count == 0)
+        {
+            <p>No Inventory Item exists. please create new item</p>
+        }
+        else
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.Inventory[0].ItemName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Inventory[0].Qty)
+                    </th>
+                    <th>Action</th>
+                </tr>
+                @foreach (var item in Model.Inventory)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Qty)
+                </td>
+                <td style="width:150px">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary text-white" asp-page="Edit" asp-route-Id="@item.Id">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-success text-white" asp-page="Details" asp-route-Id="@item.Id">
+                            <i class="fas fa-list-alt"></i>
+                        </a>
+                        <a class="btn btn-danger text-white" asp-page="Delete" asp-route-Id="@item.Id">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+                }
+            </table>
+        }
+    </div>
+</div>
